@@ -30,8 +30,15 @@ async function startBasicLiveStreaming() {
       )
       // Create an audio track from the audio sampled by a microphone.
       rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
-      // Create a video track from the video captured by a camera.
-      rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack()
+
+      /**
+       * Create a video track from the video captured by a camera.
+       * Setting the Video Profile: https://docs.agora.io/en/Interactive%20Broadcast/video_profile_web_ng?platform=Web#recommended-video-profiles
+       */
+      rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack({
+        encoderConfig: '720p_3',
+      })
+
       // Publish the local audio and video tracks to the channel.
       await rtc.client.publish([rtc.localAudioTrack, rtc.localVideoTrack])
       // Dynamically create a container in the form of a DIV element for playing the remote video track.
@@ -39,7 +46,7 @@ async function startBasicLiveStreaming() {
       // Specify the ID of the DIV container. You can use the `uid` of the remote user.
       localPlayerContainer.id = options.uid
       localPlayerContainer.textContent = 'Local user ' + options.uid
-      localPlayerContainer.style.width = '640px'
+      localPlayerContainer.style.width = '320px'
       localPlayerContainer.style.height = '480px'
       document.body.append(localPlayerContainer)
 
