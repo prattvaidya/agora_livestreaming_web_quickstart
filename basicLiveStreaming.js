@@ -1,5 +1,3 @@
-import AgoraRTC from 'agora-rtc-sdk-ng'
-
 let rtc = {
   // For the local audio and video tracks.
   localAudioTrack: null,
@@ -9,13 +7,13 @@ let rtc = {
 
 let options = {
   // Pass your app ID here.
-  appId: process.env.APP_ID,
+  appId: '',
   // Set the channel name.
   channel: 'POC',
   // Use a temp token
-  token: process.env.APP_TOKEN,
+  token: '',
   // Uid
-  uid: 123456,
+  uid: 1,
 }
 
 async function startBasicLiveStreaming() {
